@@ -1,0 +1,262 @@
+<html lang="en">
+
+<head>
+    <title>tictactoe</title>
+    <style>
+        #game button {
+            height: 50px;
+            width: 50px;
+        }
+
+        body {
+            background-image: url('./images/game_background.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+
+        }
+
+        #gameOptions {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #card {
+            /* po */
+            border: 2px solid white;
+            width: 350px;
+            padding-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <center id="gameOptions">
+        <div id="card">
+            <h2>Tic Tac Toe</h2>
+            <div id="mode">
+                <button onclick="changeMode('u-u')">User vs User</button>
+                <button onclick="changeMode('u-c')">User vs Computer</button>
+            </div>
+            <h3 id="modeName" style="padding: 0;">User vs User</h3>
+            <div id="userDetails" style="margin:10px 30px 10PX 30px;">
+                <label for='username1'>USER1:</label>
+                <input id='username1' name="username1" onkeyup="usernameUpdate(this)" placeholder="Username 1"
+                    style="text-align: center;" />
+                <br>
+                <div id="username2">
+                    <label for='user2'>USER2:</label>
+                    <input id="user2" name="username2" onkeyup="usernameUpdate(this)" placeholder="Username 2"
+                        style="text-align: center;" />
+                </div>
+            </div>
+            <button id="startGameButton" onclick="preStartGame()">Start Game</button>
+
+            <div id="preGame" style="display: none;">
+                <h3 style="color: green"><span id="tossWonUser">User1</span> won the toss</h3>
+                <div id="assignedSymbols">
+                    <div>Symbols Assigned</div>
+                    <table style="margin-top: 10px;">
+                        <tr>
+                            <td id="user1name">User1</td>
+                            <td style="width: 30px; text-align: center;">-</td>
+                            <td id="user1symbol">X</td>
+                        </tr>
+                        <tr>
+                            <td id="user2name">User2</td>
+                            <td style="width: 30px; text-align: center;">-</td>
+                            <td id="user2symbol">O</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>The game will start in <span id="timeInSec"></span>s</div>
+            </div>
+        </div>
+    </center>
+
+
+    <marquee id="win" scroll="left">
+    </marquee>
+    <div id="game" style="display: none">
+        <div style='height:100%;display: flex;justify-content: center;align-items: center;'>
+            <div id='u-c' style='height:100%;display: flex;justify-content: center;align-items: center;'>
+                <select id='xo' onchange="fun()" style='margin-bottom: 10px;width: 160px;'>
+                    <option style="display:none;">select the option....</option>
+                    <option>x</option>
+                    <option>o</option>
+                </select>
+                <div>
+
+                    <div>
+                        <table>
+                            <tr>
+                                <td><button id="00" onclick="fun1(this.id)"></button></td>
+                                <td><button id="01" onclick="fun1(this.id)"></button></td>
+                                <td><button id="02" onclick="fun1(this.id)"></button></td>
+                            </tr>
+                            <tr>
+                                <td><button id="10" onclick="fun1(this.id)"></button></td>
+                                <td><button id="11" onclick="fun1(this.id)"></button></td>
+                                <td><button id="12" onclick="fun1(this.id)"></button></td>
+                            </tr>
+                            <tr>
+                                <td><button id="20" onclick="fun1(this.id)"></button></td>
+                                <td><button id="21" onclick="fun1(this.id)"></button></td>
+                                <td><button id="22" onclick="fun1(this.id)"></button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div id='u-u' style='height:100%;display: flex;justify-content: center;align-items: center;'>
+                <h1 id='turn' style="text-align: center;"></h1>
+                <div>
+                    <table>
+                        <tr>
+                            <td><button id="00u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="01u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="02u" onclick="ufun(this.id)"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button id="10u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="11u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="12u" onclick="ufun(this.id)"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button id="20u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="21u" onclick="ufun(this.id)"></button></td>
+                            <td><button id="22u" onclick="ufun(this.id)"></button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='./uservsmachine.js'>
+
+    </script>
+    <script src='./uservsuser.js'>
+
+    </script>
+    <script>
+        var timer = 5;
+        var timerObj = 5;
+        var username1 = "";
+        var username2 = "";
+        var gameMode = "";
+        var toss = -1;
+        var userSymbol = "";
+        var tosswinner = "";
+        var tosslooser = "";
+
+        var usernameUpdate = (e) => {
+            if (e.name == "username1") username1 = e.value;
+            else username2 = e.value;
+        }
+
+        var changeMode = (mode) => {
+            gameMode = mode;
+            let modeName = "";
+
+            let el = document.getElementById('username2');
+            let style = "text-align: center; ";
+
+            if (mode === "u-c") {
+                style += "display: none";
+                modeName = "User vs Computer";
+            }
+            else {
+                modeName = "User vs User";
+                style += "display: inline-block;";
+            }
+
+            el.style = style;
+            document.getElementById('modeName').innerText = modeName
+        }
+
+        var startGame = () => {
+            document.getElementsByTagName('body')[0].style.backgroundImage = 'url(./images/b2.jpg)'
+            document.getElementById('gameOptions').style = "display: none";
+            document.getElementById('game').style = "display: block";
+
+            document.getElementById('u-u').style = "display: none";
+            document.getElementById('u-c').style = "display: none";
+
+            if (gameMode === "u-c") document.getElementById('u-c').style = "display: block";
+            else {
+                document.getElementById('u-u').style = "display: block";
+                document.getElementById('turn').innerText = `${tosswinner} turn`
+
+            }
+        }
+
+        var preStartGame = () => {
+            document.getElementById('startGameButton').style = "display: none;";
+            document.getElementById('preGame').style = "margin-top: 50px; display: block;";
+
+            document.getElementById('mode').style.display = 'none';
+            document.getElementById('userDetails').style.display = 'none';
+
+
+            if (gameMode === "u-c") {
+                username1 = username1 || 'user'
+                document.getElementById('assignedSymbols').style = "display: none;";
+                username2 = "Computer";
+
+                toss = Math.floor(Math.random() * 10) % 2;
+
+                let tossWonUser = document.getElementById('tossWonUser');
+                if (toss === 0) tossWonUser.innerText = username1;
+                else tossWonUser.innerText = username2;
+
+                tosswinner = toss === 0 ? username1 : username2;
+                tosslooser = toss === 0 ? username2 : username1;
+            }
+            else {
+                username1 = username1 || 'user1';
+                username2 = username2 || 'user2';
+                document.getElementById('user1name').innerText = username1;
+                document.getElementById('user2name').innerText = username2;
+
+                toss = Math.floor(Math.random() * 10) % 2;
+
+                let tossWonUser = document.getElementById('tossWonUser');
+                if (toss === 0) tossWonUser.innerText = username1;
+                else tossWonUser.innerText = username2;
+
+                tosswinner = toss === 0 ? username1 : username2;
+                tosslooser = toss === 0 ? username2 : username1;
+
+                console.log(tosswinner, tosslooser)
+
+                userSymbol = (Math.floor(Math.random() * 10) % 2 == 0) ? "x" : "o";
+
+                document.getElementById('user1symbol').innerText = toss == 0 ? userSymbol : sel[userSymbol];
+                document.getElementById('user2symbol').innerText = toss == 1 ? userSymbol : sel[userSymbol];
+
+            }
+
+            document.getElementById('timeInSec').innerText = timer;
+            timer--;
+            timerObj = setInterval(() => {
+                document.getElementById('timeInSec').innerText = timer;
+                timer--;
+            }, 1000);
+
+            setTimeout(clearTimeRun, 5000)
+        }
+
+        var clearTimeRun = () => {
+            clearInterval(timerObj);
+            startGame();
+        }
+
+    </script>
+
+</body>
+
+</html>
