@@ -2,4 +2,4 @@
 
 ### Live demo
 
-> sample.com
+> https://hrithikpasumarthi.github.io/tictactoe/
