@@ -2,16 +2,18 @@
 
 <head>
     <title>tictactoe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         #game button {
             height: 50px;
             width: 50px;
         }
-
+        
         body {
             background-image: url('./images/game_background.jpg');
             background-repeat: no-repeat;
             background-size: 100% 100%;
+            overflow: hidden;
 
         }
 
@@ -25,9 +27,50 @@
         #card {
             /* po */
             border: 2px solid white;
-            width: 350px;
+            width: 25%;
             padding-bottom: 20px;
             background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width:1000px) {
+            #card 
+            {
+                width:45%;
+            }
+
+        }
+        @media (min-width:700px)
+        {
+            #game button{
+                width:min(90px,10vw);
+                height:min(90px,10vw);
+            
+            }
+            select
+           {
+            height:30px;
+            }
+        }
+
+        @media (max-width:700px) {
+            #card 
+            {
+                width:55%;
+            }
+        }
+
+        @media (max-width:550px) {
+            #card 
+            {
+                width:75%;
+            }
+        }
+
+        @media (max-width:350px) {
+            #card 
+            {
+                width:90%;
+            }
         }
     </style>
 </head>
@@ -82,7 +125,7 @@
     <div id="game" style="display: none">
         <div style='height:100%;display: flex;justify-content: center;align-items: center;'>
             <div id='u-c' style='height:100%;display: flex;justify-content: center;align-items: center;'>
-                <select id='xo' onchange="fun()" style='margin-bottom: 10px;width: 160px;'>
+                <select id='xo' onchange="fun()" style='margin-bottom: 10px; width:100%;'>
                     <option style="display:none;">select the option....</option>
                     <option>x</option>
                     <option>o</option>
@@ -231,7 +274,7 @@
                 tosswinner = toss === 0 ? username1 : username2;
                 tosslooser = toss === 0 ? username2 : username1;
 
-                console.log(tosswinner, tosslooser)
+                // console.log(tosswinner, tosslooser)
 
                 userSymbol = (Math.floor(Math.random() * 10) % 2 == 0) ? "x" : "o";
 

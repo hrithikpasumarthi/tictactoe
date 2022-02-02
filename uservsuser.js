@@ -1,7 +1,7 @@
 var turn = 1;
 
 function ufun(y) {
-    console.log(userSymbol);
+    // console.log(userSymbol);
     if (mat1[Number(y[0])][Number(y[1])] != 0 || finish == 1) {
         return;
     }
@@ -28,7 +28,7 @@ function ufun(y) {
 }
 function checkwin() {
     var sum1 = 0, sum2 = 0, zero = 0;
-    console.log(mat1);
+    // console.log(mat1);
     for (var i = 0; i <= 2; i++) {
         sum1 = 0;
         sum2 = 0;
@@ -58,7 +58,7 @@ function checkwin() {
             document.getElementById('win').style.width = "100%";
             document.getElementById('win').style.fontSize = "50px";
             finish = 1;
-            console.log("155");
+            // console.log("155");
             setInterval(() => { change_color() }, 500);
             document.getElementById('turn').style.display = "none";
             return;
@@ -69,7 +69,7 @@ function checkwin() {
         // document.getElementById('win').style.height = "60px";
         document.getElementById('win').style.width = "100%";
         document.getElementById('win').style.fontSize = "50px";
-        console.log("155");
+        // console.log("155");
         finish = 1;
 
         setInterval(() => { change_color() }, 500);
@@ -77,7 +77,7 @@ function checkwin() {
         return;
     }
     if ((mat1[0][0] == 1 && mat1[1][1] == 1 && mat1[2][2] == 1) || (mat1[0][2] == 1 && mat1[1][1] == 1 && mat1[2][0] == 1)) {
-        console.log("bro");
+        // console.log("bro");
         document.getElementById('win').innerHTML = `${tosswinner} wins`;
 
         // document.getElementById('win').style.height = "130px";
@@ -96,7 +96,7 @@ function checkwin() {
         document.getElementById('win').style.fontSize = "50px";
         finish = 1;
 
-        console.log("155");
+        // console.log("155");
         setInterval(() => { change_color() }, 500);
         document.getElementById('turn').style.display = "none";
         return;

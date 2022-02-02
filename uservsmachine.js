@@ -72,7 +72,7 @@ function check_win() {
         return;
     }
     if ((mat1[0][0] == 1 && mat1[1][1] == 1 && mat1[2][2] == 1) || (mat1[0][2] == 1 && mat1[1][1] == 1 && mat1[2][0] == 1)) {
-        console.log("bro");
+        // console.log("bro");
         document.getElementById('win').innerHTML = "`${username1} win`";
 
         // document.getElementById('win').style.height = "130px";
@@ -286,7 +286,7 @@ function check_danger() {
             l = mat1[i].indexOf(-1);
             col3 = 0;
             col4 = 0;
-            console.log(el);
+            // console.log(el);
             l1 = el[l][0];
             if (first1 == 0) {
                 imp1 = i;
@@ -353,7 +353,7 @@ function check_danger() {
             }
         }
         if (col1 == 1 && col2 == 2) {
-            console.log("hi");
+            // console.log("hi");
             col3 = 0, col4 = 0;
             l = mat1[i].indexOf(1);
             l1 = el[l][0];
@@ -455,7 +455,7 @@ function fun1(y) {
         return;
     }
     if (finish == 1) {
-        console.log("155");
+        // console.log("155");
         setInterval(() => { change_color() }, 500);
         return;
 
@@ -467,7 +467,7 @@ function fun1(y) {
     mymachine();
     check_win();
     if (finish == 1) {
-        console.log("155");
+        // console.log("155");
         setInterval(() => { change_color() }, 500);
         return;
 
